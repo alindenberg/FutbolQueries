@@ -185,27 +185,27 @@ casper.then(function() {
                                        parsedString.push('');
                                     }
                                     // Check that the player has 3 different names we will replace the middle name with the true last name
-                                    boolean replacedName = false;
                                     if(parsedString.length == 4 && isNaN(str))
                                         parsedString.pop();
                                     parsedString.push(str);
                                 }
                             }
+                            // console.log(parsedString);
                             if(parsedString[0] == 'G') {
                                 var goalieQueries = parseGoalies(parsedString, year, team);
                                 // Break the results into two strings: one for GOALIES table insertion and one for PLAYER table insertion
                                 var goalieTable = goalieQueries[0];
                                 var playerTable = goalieQueries[1];
-                                goalieTuples.push(goalieTable);
-                                playerTuples.push(playerTable);
+                                console.log(goalieTable);
+                                console.log(playerTable);
                             } 
                             else if(parsedString[0] == 'M' || parsedString[0] == 'F' || parsedString[0] == 'D') {
                                 var outfieldQueries = parseOutfielders(parsedString, year, team);
                                 // Break the results into two strings: one for OUTFIELDERS table insertion and one for PLAYER table insertion
                                 var outfielderTable = outfieldQueries[0];
                                 var playerTable = outfieldQueries[1];
-                                outfielderTuples.push(outfielderTable);
-                                playerTuples.push(playerTable);           
+                                console.log(outfielderTable);
+                                console.log(playerTable);           
                             }
                         }
                     }
