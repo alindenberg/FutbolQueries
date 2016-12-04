@@ -1,15 +1,18 @@
 var casper = require('casper').create({
+    pageSettings: {
+        loadImage: false
+    },
     logLevel: "debug"
 });
 
 // Create arrays to hold urls that will be parsed
 var leagueUrls = [
                 // "http://www.espnfc.us/english-premier-league/23/index", 
-                // "http://www.espnfc.us/spanish-primera-division/15/index", 
-                // "http://www.espnfc.us/german-bundesliga/10/index", 
-                "http://www.espnfc.us/italian-serie-a/12/index", 
-                "http://www.espnfc.us/french-ligue-1/9/index", 
-                "http://www.espnfc.us/major-league-soccer/19/index"];
+                // "http://www.espnfc.us/spanish-primera-division/15/index"];
+                // "http://www.espnfc.us/german-bundesliga/10/index"]; 
+                // "http://www.espnfc.us/italian-serie-a/12/index"];
+                "http://www.espnfc.us/french-ligue-1/9/index"]; 
+                // "http://www.espnfc.us/major-league-soccer/19/index"];
 var teamUrls = [];
 
 // Create arrays to hold the strings that will be formatted tuples for insertion into the respective table
@@ -164,6 +167,8 @@ casper.then(function() {
                 self.thenOpen(seasonUrl, function() {
                     var team = this.getElementInfo('.squad-title h1').text;
                     var year = this.getElementInfo('#squad-seasons-dropdown span').text.substring(0,4);
+                    var fileName = team+year;
+                    var destination = 'frenchTeams/'+fileName;
                     this.echo("-- Scraping " + team + " " + year);
                     if(this.exists('.responsive-table-content')) {
                         var dataTables = this.getElementsInfo('.responsive-table-content tr');
@@ -209,8 +214,6 @@ casper.then(function() {
                                 playerTuples.push(playerTable);
                             }
                             if(i == dataTables.length || i == dataTables.length - 1) {
-                                var fileName = team+year;
-                                var destination = 'teamData/'+fileName;
                                 var teamData = goalieTuples.concat(outfielderTuples).concat(playerTuples);
                                 var fs = require('fs');
                                 fs.write(destination, teamData, 'w');
@@ -223,20 +226,20 @@ casper.then(function() {
                     }
                 });
             });
-        });
+        });    
     });
 });
 
-casper.then(function() {
-    this.echo('-- *******GOALIE TUPLES*******')
-    for(i = 0; i < goalieTuples.length; i++) 
-        this.echo(goalieTuples[i]);
-    this.echo('\n-- *******OUTFIELDERS TUPLES*******')
-    for(i = 0; i < outfielderTuples.length; i++) 
-        this.echo(outfielderTuples[i]);
-    this.echo('\n-- *******PLAYER TUPLES*******')
-    for(i = 0; i < playerTuples.length; i++) 
-        this.echo(playerTuples[i]);
-});
+// casper.then(function() {
+    // this.echo('-- *******GOALIE TUPLES*******')
+    // for(i = 0; i < goalieTuples.length; i++) 
+    //     this.echo(goalieTuples[i]);
+    // this.echo('\n-- *******OUTFIELDERS TUPLES*******')
+    // for(i = 0; i < outfielderTuples.length; i++) 
+    //     this.echo(outfielderTuples[i]);
+    // this.echo('\n-- *******PLAYER TUPLES*******')
+    // for(i = 0; i < playerTuples.length; i++) 
+    //     this.echo(playerTuples[i]);
+// });
 
 casper.run();
