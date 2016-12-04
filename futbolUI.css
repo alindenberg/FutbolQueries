@@ -1,0 +1,8 @@
+body, html, #dataColumns {
+	height: 100%;
+}
+
+#dataColumns {
+	height: 100%;
+	border: 1px solid black;
+}
