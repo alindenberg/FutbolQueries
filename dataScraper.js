@@ -3,7 +3,12 @@ var casper = require('casper').create({
 });
 
 // Create arrays to hold urls that will be parsed
-var leagueUrls = ["http://www.espnfc.us/english-premier-league/23/index", "http://www.espnfc.us/spanish-primera-division/15/index", "http://www.espnfc.us/german-bundesliga/10/index", "http://www.espnfc.us/italian-serie-a/12/index", "http://www.espnfc.us/french-ligue-1/9/index", "http://www.espnfc.us/major-league-soccer/19/index"];
+var leagueUrls = ["http://www.espnfc.us/english-premier-league/23/index", 
+                "http://www.espnfc.us/spanish-primera-division/15/index", 
+                "http://www.espnfc.us/german-bundesliga/10/index", 
+                "http://www.espnfc.us/italian-serie-a/12/index", 
+                "http://www.espnfc.us/french-ligue-1/9/index", 
+                "http://www.espnfc.us/major-league-soccer/19/index"];
 var teamUrls = [];
 
 // Create arrays to hold the strings that will be formatted tuples for insertion into the respective table
@@ -159,44 +164,49 @@ casper.then(function() {
                     var team = this.getElementInfo('.squad-title h1').text;
                     var year = this.getElementInfo('#squad-seasons-dropdown span').text.substring(0,4);
                     this.echo("-- Scraping " + team + " " + year);
-                    var dataTables = this.getElementsInfo('.responsive-table-content tr');
-                    for(i = 0; i < (dataTables.length); i++) {
-                        var unparsedString = dataTables[i].text;
-                        var parsedString = [];
-                        for(j = 0; j < unparsedString.length; j++) {
-                            var character = unparsedString.charAt(j);
-                            if(character != '\t' && character != '\n' && character != ' ') {
-                                var str = '';
-                                while(character != '\t' && character != '\n' && character != ' ') {
-                                    str += character;
-                                    j++;
-                                    character = unparsedString.charAt(j);
+                    if(this.exists('.responsive-table-content')) {
+                        var dataTables = this.getElementsInfo('.responsive-table-content tr');
+                        for(i = 0; i < (dataTables.length); i++) {
+                            var unparsedString = dataTables[i].text;
+                            var parsedString = [];
+                            for(j = 0; j < unparsedString.length; j++) {
+                                var character = unparsedString.charAt(j);
+                                if(character != '\t' && character != '\n' && character != ' ') {
+                                    var str = '';
+                                    while(character != '\t' && character != '\n' && character != ' ') {
+                                        str += character;
+                                        j++;
+                                        character = unparsedString.charAt(j);
+                                    }
+                                    if(str == "--")
+                                        str = 0;
+                                    // Check for the rare case of a player not having a last name. Add an empty string if that's the case
+                                    if(parsedString.length == 3 && !isNaN(str)) {
+                                       parsedString.push('');
+                                    }
+                                    parsedString.push(str);
                                 }
-                                if(str == "--")
-                                    str = 0;
-                                // Check for the rare case of a player not having a last name. Add an empty string if that's the case
-                                if(parsedString.length == 3 && !isNaN(str)) {
-                                   parsedString.push('');
-                                }
-                                parsedString.push(str);
+                            }
+                            if(parsedString[0] == 'G') {
+                                var goalieQueries = parseGoalies(parsedString, year, team);
+                                // Break the results into two strings: one for GOALIES table insertion and one for PLAYER table insertion
+                                var goalieTable = goalieQueries[0];
+                                var playerTable = goalieQueries[1];
+                                goalieTuples.push(goalieTable);
+                                playerTuples.push(playerTable);
+                            } 
+                            else if(parsedString[0] == 'M' || parsedString[0] == 'F' || parsedString[0] == 'D') {
+                                var outfieldQueries = parseOutfielders(parsedString, year, team);
+                                // Break the results into two strings: one for OUTFIELDERS table insertion and one for PLAYER table insertion
+                                var outfielderTable = outfieldQueries[0];
+                                var playerTable = outfieldQueries[1];
+                                outfielderTuples.push(outfielderTable);
+                                playerTuples.push(playerTable);           
                             }
                         }
-                        if(parsedString[0] == 'G') {
-                            var goalieQueries = parseGoalies(parsedString, year, team);
-                            // Break the results into two strings: one for GOALIES table insertion and one for PLAYER table insertion
-                            var goalieTable = goalieQueries[0];
-                            var playerTable = goalieQueries[1];
-                            goalieTuples.push(goalieTable);
-                            playerTuples.push(playerTable);
-                        } 
-                        else if(parsedString[0] == 'M' || parsedString[0] == 'F' || parsedString[0] == 'D') {
-                            var outfieldQueries = parseOutfielders(parsedString, year, team);
-                            // Break the results into two strings: one for OUTFIELDERS table insertion and one for PLAYER table insertion
-                            var outfielderTable = outfieldQueries[0];
-                            var playerTable = outfieldQueries[1];
-                            outfielderTuples.push(outfielderTable);
-                            playerTuples.push(playerTable);           
-                        }
+                    }
+                    else {
+                        console.log("No data found for "+team+" "+year);
                     }
                 });
             });
