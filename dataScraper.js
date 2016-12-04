@@ -184,6 +184,9 @@ casper.then(function() {
                                     if(parsedString.length == 3 && !isNaN(str)) {
                                        parsedString.push('');
                                     }
+                                    // Check that the player has 3 different names we will replace the middle name with the true last name
+                                    if(parsedString.length == 4 && isNaN(str))
+                                        parsedString[parsedString.length-1] = str;
                                     parsedString.push(str);
                                 }
                             }
