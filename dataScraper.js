@@ -206,7 +206,7 @@ casper.then(function() {
                         }
                     }
                     else {
-                        console.log("No data found for "+team+" "+year);
+                        casper.echo("-- No data found for "+team+" "+year);
                     }
                 });
             });
