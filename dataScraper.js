@@ -3,9 +3,10 @@ var casper = require('casper').create({
 });
 
 // Create arrays to hold urls that will be parsed
-var leagueUrls = ["http://www.espnfc.us/english-premier-league/23/index", 
-                "http://www.espnfc.us/spanish-primera-division/15/index", 
-                "http://www.espnfc.us/german-bundesliga/10/index", 
+var leagueUrls = [
+                // "http://www.espnfc.us/english-premier-league/23/index", 
+                // "http://www.espnfc.us/spanish-primera-division/15/index", 
+                // "http://www.espnfc.us/german-bundesliga/10/index", 
                 "http://www.espnfc.us/italian-serie-a/12/index", 
                 "http://www.espnfc.us/french-ligue-1/9/index", 
                 "http://www.espnfc.us/major-league-soccer/19/index"];
@@ -137,9 +138,9 @@ function parseOutfielderPlayer(attributes, year, team) {
 }
 
 // Get league urls
-// casper.start('http://www.espnfc.us/', function() {
-//     leagueUrls = this.evaluate(getLeagueUrls);
-// }); 
+casper.start('http://www.espnfc.us/', function() {
+    leagueUrls = this.evaluate(getLeagueUrls);
+}); 
 
 // Get team urls
 casper.start().each(leagueUrls, function(self, url, i) {
@@ -196,16 +197,24 @@ casper.then(function() {
                                 // Break the results into two strings: one for GOALIES table insertion and one for PLAYER table insertion
                                 var goalieTable = goalieQueries[0];
                                 var playerTable = goalieQueries[1];
-                                console.log(goalieTable);
-                                console.log(playerTable);
+                                goalieTuples.push(goalieTable);
+                                playerTuples.push(playerTable);
                             } 
                             else if(parsedString[0] == 'M' || parsedString[0] == 'F' || parsedString[0] == 'D') {
                                 var outfieldQueries = parseOutfielders(parsedString, year, team);
                                 // Break the results into two strings: one for OUTFIELDERS table insertion and one for PLAYER table insertion
                                 var outfielderTable = outfieldQueries[0];
                                 var playerTable = outfieldQueries[1];
-                                console.log(outfielderTable);
-                                console.log(playerTable);           
+                                outfielderTuples.push(outfielderTable);
+                                playerTuples.push(playerTable);
+                            }
+                            if(i == dataTables.length || i == dataTables.length - 1) {
+                                var fileName = team+year;
+                                var destination = 'teamData/'+fileName;
+                                var teamData = goalieTuples.concat(outfielderTuples).concat(playerTuples);
+                                var fs = require('fs');
+                                fs.write(destination, teamData, 'w');
+                                console.log('DONE SCRAPING TEAM \n');
                             }
                         }
                     }
