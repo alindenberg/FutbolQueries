@@ -9,8 +9,8 @@ var pastLast = false;
 // Create arrays to hold urls that will be parsed
 var leagueUrls = [
                 // "http://www.espnfc.us/english-premier-league/23/index"]; 
-                "http://www.espnfc.us/spanish-primera-division/15/index"];
-                // "http://www.espnfc.us/german-bundesliga/10/index"]; 
+                // "http://www.espnfc.us/spanish-primera-division/15/index"];
+                "http://www.espnfc.us/german-bundesliga/10/index"]; 
                 // "http://www.espnfc.us/italian-serie-a/12/index"];
                 // "http://www.espnfc.us/french-ligue-1/9/index"]; 
                 // "http://www.espnfc.us/major-league-soccer/19/index"];
@@ -164,7 +164,7 @@ casper.start().each(leagueUrls, function(self, url, i) {
 casper.then(function() {
     this.echo("-- Found " + teamUrls.length + " team urls");
     this.each(teamUrls, function(self, url, i) {
-        // if(url == 'http://www.espnfc.us/club/west-ham-united/371/index')
+        if(url == 'http://www.espnfc.us/club/bayern-munich/132/index')
             pastLast = true;
         if(pastLast == true) {
             url = url.substr(0, url.length - 5) + "squad";
