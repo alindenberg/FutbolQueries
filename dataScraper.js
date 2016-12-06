@@ -164,7 +164,7 @@ casper.start().each(leagueUrls, function(self, url, i) {
 casper.then(function() {
     this.echo("-- Found " + teamUrls.length + " team urls");
     this.each(teamUrls, function(self, url, i) {
-        if(url == 'http://www.espnfc.us/club/fc-cologne/122/index')
+        if(url == 'http://www.espnfc.us/club/werder-bremen/137/index')
             pastLast = true;
         if(pastLast == true) {
             url = url.substr(0, url.length - 5) + "squad";
