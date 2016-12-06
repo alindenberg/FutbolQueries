@@ -7,9 +7,9 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <!-- <link rel="icon" href="http://getbootstrap.com/favicon.ico"> -->
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Futbol Homepage</title>
 
     <!-- Bootstrap core CSS -->
     <link href="./projectui_files/bootstrap.min.css" rel="stylesheet">
@@ -19,6 +19,8 @@
 
     <!-- Custom styles for this template -->
     <link href="./projectui_files/dashboard.css" rel="stylesheet">
+
+    <link href = "league.css" rel="stylesheet" type="text/css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -36,44 +38,62 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Home</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="../futbolUI.html#">Home</a>
+          <a class="navbar-brand" href="../futbolUI.html">Home</a>
+          <a class="navbar-brand" href="#">League</a>
+          <a class="navbar-brand" href="../team/team.html#">Team</a>
+          <a class="navbar-brand" href="../player/player.html#">Player</a>
         </div>
     </nav>
 
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12 col-md-12 main">
-          <h1 class="page-header">League {X}</h1>
+          <h1 class="page-header">LEAGUE {X}</h1>
 
-          <div class="row trivia">
-
-            <div class="col-xs-6 col-sm-3 placeholder text-center">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4><a href="../team/team.html">League trivia</h4>
-              <span class="text-muted">Something else</span>
+            <div class="row trivia">
+              <div class="col-xs-4 col-sm-4 placeholder text-center">
+                <!-- <h4><a href="league/league.html">Random trivia</a></h4> -->
+                <div class="stage">
+                  <div class="flashcard1">
+                    <div class="front">
+                      <p>Front</p>
+                    </div>
+                    <div class="back">
+                      <p>Back</p>
+                    </div>
+                  </div>  
+                </div>
+              </div>
+              <!-- <span class="text-muted">Something else</span> -->
+              <div class="col-xs-4 col-sm-4 placeholder text-center">
+                  <!-- <h4><a href="league/league.html">Random trivia</a></h4> -->
+                  <div class="stage">
+                    <div class="flashcard2">
+                      <div class="front">
+                        <p>Front</p>
+                      </div>
+                      <div class="back">
+                        <p>Back</p>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+                <!-- <span class="text-muted">Something else</span> -->
+              <div class="col-xs-4 col-sm-4 placeholder text-center">
+                  <!-- <h4><a href="league/league.html">Random trivia</a></h4> -->
+                  <div class="stage">
+                    <div class="flashcard3">
+                      <div class="front">
+                        <p>Front</p>
+                      </div>
+                      <div class="back">
+                        <p>Back</p>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+                <!-- <span class="text-muted">Something else</span> -->
             </div>
-            <div class="col-xs-6 col-sm-3 placeholder text-center">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>League trivia</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder text-center">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>League trivia</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder text-center">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>League trivia</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
 
           <h2 class="sub-header">Section title</h2>
           <div class="table-responsive">
@@ -211,6 +231,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="./projectui_files/jquery.min.js"></script>
+    <script src ="league.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="./projectui_files/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->

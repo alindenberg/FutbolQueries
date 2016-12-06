@@ -1,0 +1,50 @@
+body, html {
+	height: 100%;
+}
+
+#titleRow {
+	padding-bottom: 5%;
+}
+
+#navigationRow {
+	padding-top: 5%;
+	padding-bottom: 10%;
+	height: 100%;
+}
+
+#triviaRow {
+
+}
+
+.stage {
+  -webkit-perspective: 1000; 
+}
+
+.flashcard1, .flashcard2, .flashcard3 {
+  height: 250px;  
+  width: 400px; 
+  margin: 10% auto;
+  border: 1px solid gray; 
+  box-shadow: 2px 2px 2px #000;
+  -webkit-transform-style: preserve-3d;  
+  transition: all 0.3s;               
+  -webkit-transition: all 0.3s;
+}
+
+.flipped, .back {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg); 
+}
+
+.front, .back {
+  height: 250px;          
+  width: 400px;
+  position: absolute;    
+  text-align: center;   
+  -webkit-backface-visibility: hidden;       
+}
+
+.front p, .back p {
+  margin-top: 25%;       
+  font-size: 3em;
+}

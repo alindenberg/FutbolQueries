@@ -10,8 +10,8 @@ var pastLast = false;
 var leagueUrls = [
                 // "http://www.espnfc.us/english-premier-league/23/index"]; 
                 // "http://www.espnfc.us/spanish-primera-division/15/index"];
-                "http://www.espnfc.us/german-bundesliga/10/index"]; 
-                // "http://www.espnfc.us/italian-serie-a/12/index"];
+                // "http://www.espnfc.us/german-bundesliga/10/index"]; 
+                "http://www.espnfc.us/italian-serie-a/12/index"];
                 // "http://www.espnfc.us/french-ligue-1/9/index"]; 
                 // "http://www.espnfc.us/major-league-soccer/19/index"];
 var teamUrls = [];
@@ -164,7 +164,7 @@ casper.start().each(leagueUrls, function(self, url, i) {
 casper.then(function() {
     this.echo("-- Found " + teamUrls.length + " team urls");
     this.each(teamUrls, function(self, url, i) {
-        if(url == 'http://www.espnfc.us/club/werder-bremen/137/index')
+        if(url == 'http://www.espnfc.us/club/sampdoria/2734/index')
             pastLast = true;
         if(pastLast == true) {
             url = url.substr(0, url.length - 5) + "squad";
@@ -180,7 +180,7 @@ casper.then(function() {
                         var team = this.getElementInfo('.squad-title h1').text;
                         var year = this.getElementInfo('#squad-seasons-dropdown span').text.substring(0,4);
                         var fileName = team+year;
-                        var destination = 'spanishTeams/'+fileName;
+                        var destination = 'tupleData/italianTeams/'+fileName;
                         this.echo("-- Scraping " + team + " " + year);
                         if(this.exists('.responsive-table-content')) {
                             var dataTables = this.getElementsInfo('.responsive-table-content tr');
